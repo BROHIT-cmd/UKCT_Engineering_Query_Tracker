@@ -35,11 +35,11 @@ else:
     st.write("Status:", row["status"])
 
     engineers = [
-        "Rohit",
-        "Engineer A",
-        "Engineer B",
-        "Engineer C",
-        "Engineer D"
+        "Bharat Rohit",
+        "Manan Kachhiya",
+        "Harsh Shrimankar",
+        "Rachit Marsonia",
+        "Abhishek Bhavsar"
     ]
 
     new_owner = st.selectbox(
@@ -90,6 +90,19 @@ else:
             resolution,
             selected
         ))
+
+email = ENGINEERS[new_owner]
+
+send_email(
+    email,
+    f"[UKCT] Query Reassigned - {selected}",
+    f"""
+Query has been reassigned to you.
+
+Reason:
+{reason}
+"""
+)
 
         conn.commit()
 
