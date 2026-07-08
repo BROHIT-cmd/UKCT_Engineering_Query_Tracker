@@ -1,15 +1,35 @@
 import streamlit as st
 from database.database import get_connection
 from datetime import datetime
+from utils.email_utils import send_email
+from utils.email_config import ENGINEERS
 
 st.title("📝 Submit Query")
 
+email = ENGINEERS[assigned_to]
+
+send_email(
+    email,
+    f"[UKCT] New Query Assigned - {query_id}",
+    f"""
+A new query has been assigned.
+
+Project: {project_name}
+
+Category: {category}
+
+Priority: {priority}
+
+Description:
+{description}
+"""
+)
 engineers = [
-    "Rohit",
-    "Engineer A",
-    "Engineer B",
-    "Engineer C",
-    "Engineer D"
+    "Bharat Rohit",
+    "Manan Kachiya",
+    "Harsh Shrimankar",
+    "Rachit Marsonia",
+    "Abhishek Bhavsar"
 ]
 
 project_types = [
