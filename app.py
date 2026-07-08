@@ -1,14 +1,25 @@
-🏗 UKCT Engineering Query Tracker
+import streamlit as st
+from database.database import init_db
 
---------------------------------
+st.set_page_config(
+    page_title="UKCT Query Tracker",
+    layout="wide"
+)
 
-Submit Query
+init_db()
 
-Open Queries
+st.title("🏗 UKCT Engineering Query Tracker")
 
-My Queries
+st.markdown("""
+### Welcome
 
-Knowledge Base
+Use the left navigation panel.
 
-Dashboard
+Available Modules:
 
+- Submit Query
+- Open Queries
+- My Queries
+- Knowledge Base
+- Dashboard
+""")
