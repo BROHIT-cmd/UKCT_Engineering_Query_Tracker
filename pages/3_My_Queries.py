@@ -1,5 +1,10 @@
 import streamlit as st
 import pandas as pd
+import sys
+from pathlib import Path
+
+# Allow imports from parent folder
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from query_db import get_connection
 from engineers import ENGINEERS
@@ -13,18 +18,24 @@ selected_user = st.selectbox(
 
 conn = get_connection()
 
+query = """
+SELECT *
+FROM queries
+WHERE assigned_to = ?
+"""
+
 df = pd.read_sql_query(
-    f"""
-    SELECT *
-    FROM queries
-    WHERE assigned_to='{selected_user}'
-    """,
-    conn
+    query,
+    conn,
+    params=(selected_user,)
 )
 
-st.dataframe(
-    df,
-    use_container_width=True
-)
+if len(df) == 0:
+    st.info("No queries assigned.")
+else:
+    st.dataframe(
+        df,
+        use_container_width=True
+    )
 
 conn.close()
