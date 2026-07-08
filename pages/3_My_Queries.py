@@ -1,20 +1,14 @@
 import streamlit as st
 import pandas as pd
-from database.database import get_connection
+
+from query_db import get_connection
+from engineers import ENGINEERS
 
 st.title("👨‍💻 My Queries")
 
-engineers = [
-    "Rohit",
-    "Engineer A",
-    "Engineer B",
-    "Engineer C",
-    "Engineer D"
-]
-
 selected_user = st.selectbox(
-    "Select Engineer",
-    engineers
+    "Engineer",
+    list(ENGINEERS.keys())
 )
 
 conn = get_connection()
@@ -28,4 +22,9 @@ df = pd.read_sql_query(
     conn
 )
 
-st.dataframe(df)
+st.dataframe(
+    df,
+    use_container_width=True
+)
+
+conn.close()
