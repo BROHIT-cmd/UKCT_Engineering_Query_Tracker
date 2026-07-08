@@ -1,25 +1,36 @@
 import streamlit as st
-from database.database import init_db
+from query_db import create_table
+
+create_table()
 
 st.set_page_config(
-    page_title="UKCT Query Tracker",
+    page_title="UKCT Engineering Query Tracker",
     layout="wide"
 )
 
-init_db()
+st.sidebar.image(
+    "ukct_logo.png",
+    width=180
+)
 
-st.title("🏗 UKCT Engineering Query Tracker")
+st.sidebar.markdown(
+    "### UKCT Team"
+)
 
-st.markdown("""
-### Welcome
+st.title(
+    "🏗 UKCT Engineering Query Tracker"
+)
 
-Use the left navigation panel.
+st.write("""
+Welcome to the UKCT Engineering Query Tracker.
 
-Available Modules:
+Use the left navigation menu:
 
-- Submit Query
-- Open Queries
-- My Queries
-- Knowledge Base
-- Dashboard
+✅ Submit Query
+
+✅ Open Queries
+
+✅ My Queries
+
+✅ Dashboard
 """)
