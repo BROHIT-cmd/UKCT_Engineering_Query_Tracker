@@ -76,6 +76,12 @@ else:
         "Resolution"
     )
 
+send_email(
+    email,
+    f"[UKCT] Query Resolved - {selected}",
+    resolution
+)    
+    
     if st.button("Resolve Query"):
 
         cursor = conn.cursor()
