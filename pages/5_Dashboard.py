@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from database.database import get_connection
+
+from query_db import get_connection
 
 st.title("📊 Dashboard")
 
@@ -14,75 +15,47 @@ df = pd.read_sql_query(
 
 if len(df) == 0:
 
-    st.warning("No Data Found")
+    st.warning("No Data Available")
 
 else:
 
     col1, col2, col3 = st.columns(3)
 
-    total_queries = len(df)
-
-    open_queries = len(
-        df[df["status"] != "Closed"]
-    )
-
-    resolved_queries = len(
-        df[df["status"] == "Resolved"]
-    )
-
     col1.metric(
-        "Total",
-        total_queries
+        "Total Queries",
+        len(df)
     )
 
     col2.metric(
-        "Open",
-        open_queries
+        "Open Queries",
+        len(
+            df[df["status"] == "Open"]
+        )
     )
 
     col3.metric(
         "Resolved",
-        resolved_queries
+        len(
+            df[df["status"] == "Resolved"]
+        )
     )
 
-    st.subheader(
-        "Queries by Engineer"
-    )
-
-    engineer_df = (
+    chart_df = (
         df.groupby("assigned_to")
         .size()
         .reset_index(name="Count")
     )
 
-    fig1 = px.bar(
-        engineer_df,
+    fig = px.bar(
+        chart_df,
         x="assigned_to",
-        y="Count"
+        y="Count",
+        title="Queries by Engineer"
     )
 
     st.plotly_chart(
-        fig1,
+        fig,
         use_container_width=True
     )
 
-    st.subheader(
-        "Queries by Category"
-    )
-
-    category_df = (
-        df.groupby("category")
-        .size()
-        .reset_index(name="Count")
-    )
-
-    fig2 = px.pie(
-        category_df,
-        names="category",
-        values="Count"
-    )
-
-    st.plotly_chart(
-        fig2,
-        use_container_width=True
-    )
+conn.close()
