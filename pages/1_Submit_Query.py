@@ -26,7 +26,7 @@ Description:
 )
 engineers = [
     "Bharat Rohit",
-    "Manan Kachiya",
+    "Manan Kachhiya",
     "Harsh Shrimankar",
     "Rachit Marsonia",
     "Abhishek Bhavsar"
